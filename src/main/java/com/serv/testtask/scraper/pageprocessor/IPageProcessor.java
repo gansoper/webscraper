@@ -9,6 +9,7 @@ public interface IPageProcessor<E> extends Runnable {
 	
 	List<E> getPageItems(String URL);
 	
+	// default method of getting HTML Page
 	public default HtmlPage getPage(String URL){
 		WebClient client = new WebClient();
 		client.getOptions().setCssEnabled(false);

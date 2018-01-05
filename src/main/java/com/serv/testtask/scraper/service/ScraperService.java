@@ -1,5 +1,6 @@
 package com.serv.testtask.scraper.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,18 +34,23 @@ public class ScraperService {
 
 		IPageProcessor<Category> categoryProcessor = new CategoryPageProcessor();
 		List<Category> categories = categoryProcessor.getPageItems(config.getScraperBaseURL() + config.getScraperCategoriesURL());
-		
+		List<Thread> threadsPool = new ArrayList<Thread>();
 		for(Category cat: categories){
 			IPageProcessor<Item>  itemsProcessor = new ItemsPageProcessor(cat, config.getScraperBaseURL() + cat.getLink(), dbService );
 			Thread thread = new Thread(itemsProcessor);
 			thread.start();
-			try {
-				thread.join(); // this needs in order to have not locked DB when read. 
-			} catch (InterruptedException e) {
-
-				e.printStackTrace();
-			}
+			threadsPool.add(thread);
 		}
+		
+		threadsPool.stream().forEach(e->{
+			try {
+				e.join();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});		
+		
 		
 		return true;
 	}

@@ -45,7 +45,8 @@ public class ItemsPageProcessor implements IPageProcessor<Item>{
 	public void run() {
 		List<Item> items = this.getPageItems(this.URL);
 		this.category.getItems().addAll(items);
-		synchronized (this.dbService) {
+		
+		synchronized (this.dbService) { // this needed for multithreading  - obsolete for now. 
 			this.dbService.saveCategory(this.category);
 		}
 	}

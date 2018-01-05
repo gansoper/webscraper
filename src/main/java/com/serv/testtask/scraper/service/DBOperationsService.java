@@ -34,6 +34,11 @@ public class DBOperationsService {
 	
 	public static final int PAGE_OFFSET = 10;
 	
+	/**
+	 * Method for creation of the UI Model Entities of DB data. 
+	 * @param startItem  - page start searching from 
+	 * @return List<UIDataModelEntity>
+	 */
 	@Transactional
 	public List<UIDataModelEntity>getLinks(int startItem){
 		PageRequest page = new PageRequest(startItem, PAGE_OFFSET);
@@ -98,47 +103,5 @@ public class DBOperationsService {
 		return true;
 	}
 	
-	
-	@Transactional
-	public void TestMethod(){
-		
-		categoryRepo.deleteAll();
-		itemRepo.deleteAll();
-		itemLinkRepo.deleteAll();
-		
-		Category cat1 = new Category();
-		cat1.setName("TestCat1");
-		cat1.setLink("catLink1");
-		
-		
-		
-		
-		Item item1 = new Item();
-		item1.setName("item1");
-		item1.setCategory(cat1);
-		
-		Item item2 = new Item();
-		item2.setName("item2");
-		item2.setCategory(cat1);
-		
-		
-		ItemLink itemlink1 = new ItemLink();
-		ItemLink itemlink2 = new ItemLink();
-		
-		
-		itemlink1.setLink("link1");
-		itemlink1.setItem(item1);
-		itemlink2.setLink("link2");
-		itemlink2.setItem(item2);
-		
-		item1.getItemLinks().add(itemlink1);
-		item2.getItemLinks().add(itemlink2);
-		
-		cat1.getItems().add(item1);
-		cat1.getItems().add(item2);
-		
-		categoryRepo.save(cat1);
-		
-	}
 	
 }

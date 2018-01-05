@@ -21,15 +21,14 @@ public class MainController {
 	@RequestMapping(value="/scrape", method = RequestMethod.GET)
 	@ResponseBody
 	public UIData testData(){
-		//this.scraper.scrapePage();
-		
+		this.scraper.scrapePage();
 		UIData data  = this.scraper.getDataforUI(0);
 		GoogleThreadStopChecker.needsToStop = false;
 		this.scraper.googleLinksUpdate();
 		return data;
 	}
 	
-	@RequestMapping(value="/home", method = RequestMethod.GET)
+	@RequestMapping(value={"/home","/"}, method = RequestMethod.GET)
 	public String home(){
 		return "index";
 	}

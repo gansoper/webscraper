@@ -59,6 +59,7 @@ public class ItemLinksPageProcessor implements IPageProcessor<ItemLink>{
 			if (itemsprocessed == itemsCount)
 				break;
 		
+			//get Items for Google links check
 			Page<Item> items = this.dbService.getItemsForGoogle(page);
 			
 			for(Item item: items){
@@ -71,6 +72,7 @@ public class ItemLinksPageProcessor implements IPageProcessor<ItemLink>{
 					e.printStackTrace();
 				}
 				
+				//acquiring links
 				List<ItemLink> links = this.getPageItems(this.URL + itemName);
 				
 				
@@ -80,6 +82,7 @@ public class ItemLinksPageProcessor implements IPageProcessor<ItemLink>{
 					break;
 				}
 				
+				//save links
 				dbService.saveItemLinks(item.getName(), links);
 				try {
 					Thread.sleep(5000); // to avoid google block captcha

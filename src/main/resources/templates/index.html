@@ -36,8 +36,8 @@
 							<td>{{item.categoryName}}</td>
 							<td>{{item.companyName}}</td>
 							<td>
-								<div ng-repeat="link in item.googleLinks">
-									<a href="{{link}}" target="_blank">{{link}}</a>
+								<div ng-repeat="link in item.googleLinks track by $index">
+									<a href="{{link}}" target="_blank">{{$index + 1}}. {{link}}</a>
 								</div>
 							</td>
 						</tr>
